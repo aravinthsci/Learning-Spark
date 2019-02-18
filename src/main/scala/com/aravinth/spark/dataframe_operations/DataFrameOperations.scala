@@ -517,13 +517,30 @@ DataFrame column data types = StringType, DoubleType*/
   //DataFrame drop null
   val donuts_null = Seq(("plain donut", 1.50), (null.asInstanceOf[String], 2.0), ("glazed donut", 2.50))
   val dfWithNull = sparkSession
-    .createDataFrame(donuts)
+    .createDataFrame(donuts_null)
     .toDF("Donut Name", "Price")
 
   dfWithNull.show()
 
+  /*
+  +------------+-----+
+|  Donut Name|Price|
++------------+-----+
+| plain donut|  1.5|
+|        null|  2.0|
+|glazed donut|  2.5|
++------------+-----+ */
+
   val dfWithoutNull = dfWithNull.na.drop()
   dfWithoutNull.show()
+
+  /*
+  +------------+-----+
+|  Donut Name|Price|
++------------+-----+
+| plain donut|  1.5|
+|glazed donut|  2.5|
++------------+-----+*/
 
 
 }
